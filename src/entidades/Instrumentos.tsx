@@ -1,5 +1,5 @@
 export interface Instrumento {
-    id: string;
+    id: number;
     instrumento: string;
     marca: string;
     modelo: string;
