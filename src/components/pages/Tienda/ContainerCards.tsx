@@ -1,8 +1,9 @@
 import React from 'react'
 import CardItem from './CardItem'
 import { useEffect, useState } from 'react'
-import { Instrumento } from '../entidades/Instrumentos';
-import LoadingMessage from './LoadingMessage/LoadingMessage';
+import { Instrumento } from '../../../entidades/Instrumentos';
+import LoadingMessage from '../../LoadingMessage/LoadingMessage';
+import { fetchAllData } from '../../../api/Fetch';
 
 const ContainerCards = () => {
     const [instrumentos, setInstrumentos] = useState<Instrumento[]>([]);
@@ -10,20 +11,15 @@ const ContainerCards = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch("http://localhost:8080/instrumentos/all");
-            const data = await response.json();
-
-            //Le puse esto porque sino carga tan rápido que no se ve la pantallita de carga
-            setTimeout(() => {
-                setInstrumentos(data);
-                setIsDataFetched(true);
-            }, 1000);
+            const data = await fetchAllData();
+            setInstrumentos(data);
+            setIsDataFetched(true);
         }
         fetchData();
     }, [isDataFetched]);
 
     return (
-        <div className='md:m-0 m-5 pt-24'>
+        <div className='md:m-0  pt-24'>
             <div className='w-full h-auto flex flex-col justify-center items-center'>
 
                 {isDataFetched ? (

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom';
-import ContainerCards from '../components/ContainerCards';
+import ContainerCards from '../components/pages/Tienda/ContainerCards';
 import Navbar from '../components/Navbar';
 import Modal from '../components/Modal/Modal';
 import Home from '../components/pages/Home/Home';

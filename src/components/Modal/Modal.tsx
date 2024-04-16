@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Modal = () => {
 
   const location = useLocation();
-  const data = location.state as Instrumento;
+  const data = location.state.data as Instrumento;
 
   function envio() {
     if (data.costoEnvio === "G") {
@@ -19,14 +19,14 @@ const Modal = () => {
 
   return (
     <>
-      <div className='w-full flex flex-col h-screen items-center justify-center bg-slate-100'>
+      <div className=' w-full flex flex-col h-auto lg:h-screen items-center justify-center bg-slate-100'>
         <div
-          className='flex w-full xl:w-2/3 flex-col justify-center md:justify-center items-center h-auto border-b m-2 p-5 mt-24 overflow-hidden bg-white'
+          className='overflow-y-scroll flex w-full xl:w-2/3 flex-col justify-center md:justify-center items-center h-auto border-b m-2 p-5 mt-24 overflow-hidden bg-white'
         >
           <div className='flex  flex-col lg:flex-row justify-center items-center '>
             <div className='flex  rounded-full shadow-black p-24 '>
               <img src={`/assets/img/${data.imagen}`}
-                className='w-96 h-96 overflow-hidden' />
+                className='w-96 h-96 ' />
             </div>
 
             <div className=' space-y-2 w-full '>
@@ -48,6 +48,8 @@ const Modal = () => {
                 <button className='w-full text-xl m-1 bg-blue-100 text-blue-700 font-semibold p-2 rounded-lg'>Agregar al carrito</button>
               </div>
             </div>
+
+
           </div>
         </div>
 
