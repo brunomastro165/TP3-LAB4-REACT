@@ -6,6 +6,8 @@ import Modal from '../components/Modal/Modal';
 import Home from '../components/pages/Home/Home';
 import DondeEstamos from '../components/pages/DondeEstamos/DondeEstamos';
 import Footer from '../components/Footer/Footer';
+import Table from '../components/Tabla/Table';
+import Admin from '../components/pages/Admin/Admin';
 
 const AppRoutes = () => {
   return (
@@ -17,6 +19,7 @@ const AppRoutes = () => {
         <Route path="/instrumento/:id" element={<Modal />} />
         <Route path="/" element={<Home />} />
         <Route path="/DondeEstamos" element={<DondeEstamos />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
       <Footer />
     </>

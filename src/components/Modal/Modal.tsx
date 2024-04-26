@@ -25,7 +25,7 @@ const Modal = () => {
         >
           <div className='flex  flex-col lg:flex-row justify-center items-center '>
             <div className='flex  rounded-full shadow-black p-24 '>
-              <img src={`/assets/img/${data.imagen}`}
+              <img src={data.imagen}
                 className='w-96 h-96 ' />
             </div>
 

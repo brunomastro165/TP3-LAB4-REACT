@@ -21,6 +21,7 @@ const CardItem: FC<Instrumento> = ({ instrumento, cantidadVendida, costoEnvio, d
         navigate(`/instrumento/${id}`, { state: { data } })
     }
 
+
     function envio() {
         if (costoEnvio === "G") {
             return <h3 className='text-green-500 flex justify-start flex-row'><img src="/assets/img/camion.png" />Envío gratis a todo el país</h3>
@@ -30,12 +31,15 @@ const CardItem: FC<Instrumento> = ({ instrumento, cantidadVendida, costoEnvio, d
         }
     }
 
+    console.log(imagen)
+
     return (
         <>
             <div className='hidden  w-full md:w-10/12 lg:w-1/2 md:flex justify-center md:justify-start items-center h-auto border-b  m-2 p-5 overflow-hidden hover:shadow-lg transition-all cursor-pointer'>
                 <div className=' flex flex-col md:flex-row justify-center items-center  '>
                     <div className='flex  rounded-full shadow-black p-8 '>
-                        <img src={`/assets/img/${imagen}`}
+                        <img src={`${imagen}`}
+                        alt={imagen}
                             className='h-24 w-24 overflow-hidden' />
                     </div>
 
