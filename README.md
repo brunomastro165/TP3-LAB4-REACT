@@ -1,5 +1,10 @@
-![image](https://github.com/brunomastro165/TP3-LAB4-REACT/assets/127962081/89975aee-f337-4ea9-a3a1-b059c82673f3)
-![image](https://github.com/brunomastro165/TP3-LAB4-REACT/assets/127962081/1da4cb54-dcca-49f3-80bb-ed0b2ec01655)
-![image](https://github.com/brunomastro165/TP3-LAB4-REACT/assets/127962081/9981a5e4-22ff-470f-86d4-6dfc1b05249f)
-![image](https://github.com/brunomastro165/TP3-LAB4-REACT/assets/127962081/e8fd2fa2-8797-4e8c-9f6c-a9fb1824ffff)
+![image](https://github.com/brunomastro165/TP3-LAB4-REACT/assets/127962081/09ae9d35-1c70-4d8e-9c4d-292e442ebe02)
+
+![image](https://github.com/brunomastro165/TP3-LAB4-REACT/assets/127962081/fe95fe00-08de-4276-8e9a-4af1864a4081)
+
+![image](https://github.com/brunomastro165/TP3-LAB4-REACT/assets/127962081/b1bc891b-db73-4b59-8311-6afc0864e53b)
+
+![image](https://github.com/brunomastro165/TP3-LAB4-REACT/assets/127962081/6daeacbe-b50f-4324-b66d-d1fcb55fcbb9)
+![image](https://github.com/brunomastro165/TP3-LAB4-REACT/assets/127962081/cdc7fe56-3fb5-449d-8def-4287ad7c34ea)
+
 
