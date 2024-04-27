@@ -23,7 +23,7 @@ const Table = () => {
     costoEnvio: '',
     cantidadVendida: 0,
     descripcion: '',
-    activo: false,
+    activo: true,
     categoria: {
       denominacion: ''
     }
@@ -45,13 +45,13 @@ const Table = () => {
 
   return (
     <>
-      <div className='w-full flex justify-center items-center text-end items-end mr-72' onClick={() => { openPUT() }}>
+      <div className='w-full flex justify-center items-center text-end  mr-72' onClick={() => { openPUT() }}>
 
         <button className='p-3 rounded-md bg-green-600 active:scale-95 transition-all text-white text-2xl'>Agregar</button>
       </div>
-      <div className="relative overflow-x-auto   cursor-pointer m-5 " >
+      <div className="relative overflow-x-auto   cursor-pointer m-5  p-2 " >
 
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">

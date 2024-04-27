@@ -22,7 +22,7 @@ const TableItem: FC<Instrumento> = ({ activo, cantidadVendida, categoria, costoE
         costoEnvio: '',
         cantidadVendida: 0,
         descripcion: '',
-        activo: false,
+        activo: true,
         categoria: {
             denominacion: ''
         }
