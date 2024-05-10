@@ -36,18 +36,19 @@ const Modal = () => {
     let detalle: IDetallePedido = { id: 0, cantidad: cantidad, instrumento: data };
     removeCarrito(detalle);
     setEnviado(false);
+    setCantidad(0);
   }
 
   return (
     <>
       <div className=' w-full flex flex-col h-auto lg:h-screen items-center justify-center bg-slate-100'>
         <div
-          className='overflow-y-scroll flex w-full xl:w-2/3 flex-col justify-center md:justify-center items-center h-auto border-b m-2 p-5 mt-24 overflow-hidden bg-white'
+          className='overflow-y-scroll md:overflow-hidden flex w-full xl:w-2/3 flex-col justify-center md:justify-center items-center h-auto border-b m-2 p-5 mt-24 overflow-hidden bg-white'
         >
           <div className='flex  flex-col lg:flex-row justify-center items-center '>
-            <div className='flex  rounded-full shadow-black p-24 '>
+            <div className='flex w-96 h-56 shadow-black bg-red-600 mx-14'>
               <img src={data.imagen}
-                className='w-96 h-96 ' />
+                className='w-full ' />
             </div>
 
             <div className=' space-y-2 w-full '>
@@ -59,18 +60,23 @@ const Modal = () => {
             </div>
 
 
-            <div className='border p-5 rounded-md space-y-2 w-full shadow-md m-12'>
+            <div className='border p-5 rounded-md space-y-2 w-full shadow-md m-12 transition-all duration-700'>
               <h3>{envio()}</h3>
               <h2 className='font-semibold text-lg text-blue-600'>Stock disponible</h2>
               <h2 className='text-xl  font-light md:text-3xl'>${data.precio}</h2>
               <h2>Disponible en <span className='text-blue-600'>{data.cantidadVendida}</span> cuotas</h2>
               <div className='p-5'>
-                <div className='flex flex-row'>
-                  {cantidad >= 1 && <button className='w-full text-xl m-1 bg-red-600 p-2 rounded-lg text-white' onClick={() => setCantidad(cantidad - 1)}>-</button>}
-                  <button className='w-full text-xl m-1 bg-blue-600 p-2 rounded-lg text-white' onClick={() => setCantidad(cantidad + 1)}>+</button>
-                </div>
-                <h1>{cantidad}</h1>
-                <button className='w-full text-xl m-1 bg-blue-100 text-blue-700 font-semibold p-2 rounded-lg' onClick={() => agregar()}>Agregar al carrito</button>
+                {enviado ||
+                  <>
+                    {cantidad >= 1 && <h1 className='text-center text-xl text-blue-600'>{cantidad}</h1>}
+                    <div className='flex flex-row'>
+                      {cantidad >= 1 && <button className='w-full text-xl m-1 active:scale-95 transition-all bg-red-600 p-2 rounded-lg text-white' onClick={() => setCantidad(cantidad - 1)}>-</button>}
+                      <button className='w-full text-xl m-1 bg-blue-600 p-2 active:scale-95 transition-all rounded-lg text-white' onClick={() => setCantidad(cantidad + 1)}>+</button>
+                    </div>
+                    {cantidad >= 1 && <button className='w-full text-xl m-1 btn bg-blue-100 text-blue-700 font-semibold p-2 rounded-lg' onClick={() => agregar()}>Agregar al carrito</button>}
+                  </>
+                }
+
                 {enviado && <button className='w-full text-xl m-1 bg-red-100 text-red-700 font-semibold p-2 rounded-lg' onClick={() => eliminar()}>Eliminar del carrito</button>}
               </div>
             </div>

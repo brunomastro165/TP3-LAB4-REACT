@@ -31,6 +31,7 @@ const CardItem: FC<Instrumento> = ({ instrumento, cantidadVendida, costoEnvio, d
         }
     }
 
+    console.log("betitosex")
     console.log(imagen)
 
     return (
@@ -40,7 +41,7 @@ const CardItem: FC<Instrumento> = ({ instrumento, cantidadVendida, costoEnvio, d
                     <div className='flex  rounded-full shadow-black p-8 '>
                         <img src={`${imagen}`}
                             alt={imagen}
-                            className='h-24 w-24 overflow-hidden' />
+                            className='size-54 overflow-hidden' />
                     </div>
 
                     <div className='ml-5 space-y-2 w-full'>
