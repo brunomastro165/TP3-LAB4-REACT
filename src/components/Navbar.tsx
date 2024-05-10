@@ -7,6 +7,7 @@ import { FaHome } from "react-icons/fa";
 import { FaShoppingBag } from "react-icons/fa";
 import { SiGooglemaps } from "react-icons/si";
 import { MdAdminPanelSettings } from "react-icons/md";
+import { FaShoppingCart } from "react-icons/fa";
 
 
 
@@ -14,8 +15,8 @@ const Navbar = () => {
 
   const [selected, setSelected] = useState("Home")
   const [open, setOpen] = useState(false);
-  
-  
+
+
 
   return (
     <>
@@ -65,6 +66,17 @@ const Navbar = () => {
               <MdAdminPanelSettings />
               <h1 className=' rounded-lg  p-2'>
                 Administrador
+              </h1>
+            </span>
+          </Link>
+
+          <Link to={"/carrito"}
+            onClick={() => setSelected("Carrito")}
+            className={`px-5 py-2 rounded-lg hover:bg-gray-50 hover:text-black transition-all ${selected === "Carrito" ? 'bg-gray-50 text-black' : ''}`}>
+            <span className='flex flex-row items-center justify-start text-center'>
+              <FaShoppingCart />
+              <h1 className=' rounded-lg  p-2'>
+                Carrito
               </h1>
             </span>
           </Link>

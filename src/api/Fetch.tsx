@@ -1,3 +1,4 @@
+import { IPedido } from "../entidades/IPedido";
 import { Instrumento } from "../entidades/Instrumentos";
 
 //Llamada a la API del backend que trae todos los instrumentos
@@ -29,6 +30,23 @@ export const postInstrumento = async (instrumento: Instrumento) => {
 
     return await response.json();
 }
+
+export const postPedido = async (pedido: IPedido) => {
+    const response = await fetch('http://localhost:8080/pedidos/create', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(pedido)
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+}
+
 
 
 export const putInstrumento = async (instrumento: Instrumento) => {

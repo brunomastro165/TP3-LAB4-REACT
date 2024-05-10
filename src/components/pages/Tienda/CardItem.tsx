@@ -39,7 +39,7 @@ const CardItem: FC<Instrumento> = ({ instrumento, cantidadVendida, costoEnvio, d
                 <div className=' flex flex-col md:flex-row justify-center items-center  '>
                     <div className='flex  rounded-full shadow-black p-8 '>
                         <img src={`${imagen}`}
-                        alt={imagen}
+                            alt={imagen}
                             className='h-24 w-24 overflow-hidden' />
                     </div>
 

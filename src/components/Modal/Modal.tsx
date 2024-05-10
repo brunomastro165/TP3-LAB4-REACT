@@ -1,12 +1,19 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { Instrumento } from '../../entidades/Instrumentos'
 import { useLocation, useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom';
+import { CarritoContextProvider } from '../../contexts/CarritoContext';
+import { useCarrito } from '../../hooks/useCarrito';
+import { IDetallePedido } from '../../entidades/IDetallePedido';
 
 const Modal = () => {
 
   const location = useLocation();
   const data = location.state.data as Instrumento;
+
+  const [cantidad, setCantidad] = useState<number>(0);
+
+  const [enviado, setEnviado] = useState<boolean>(false);
 
   function envio() {
     if (data.costoEnvio === "G") {
@@ -15,6 +22,20 @@ const Modal = () => {
     else {
       return <h3 className='text-orange-500'>Costo de envío ${data.costoEnvio}</h3>
     }
+  }
+
+  const { addCarrito, carrito, limpiarCarrito, removeCarrito, removeItem } = useCarrito();
+
+  function agregar() {
+    let detalle: IDetallePedido = { id: 0, cantidad: cantidad, instrumento: data };
+    addCarrito(detalle);
+    setEnviado(true)
+  }
+
+  function eliminar() {
+    let detalle: IDetallePedido = { id: 0, cantidad: cantidad, instrumento: data };
+    removeCarrito(detalle);
+    setEnviado(false);
   }
 
   return (
@@ -44,12 +65,15 @@ const Modal = () => {
               <h2 className='text-xl  font-light md:text-3xl'>${data.precio}</h2>
               <h2>Disponible en <span className='text-blue-600'>{data.cantidadVendida}</span> cuotas</h2>
               <div className='p-5'>
-                <button className='w-full text-xl m-1 bg-blue-600 p-2 rounded-lg text-white'>Comprar ahora</button>
-                <button className='w-full text-xl m-1 bg-blue-100 text-blue-700 font-semibold p-2 rounded-lg'>Agregar al carrito</button>
+                <div className='flex flex-row'>
+                  {cantidad >= 1 && <button className='w-full text-xl m-1 bg-red-600 p-2 rounded-lg text-white' onClick={() => setCantidad(cantidad - 1)}>-</button>}
+                  <button className='w-full text-xl m-1 bg-blue-600 p-2 rounded-lg text-white' onClick={() => setCantidad(cantidad + 1)}>+</button>
+                </div>
+                <h1>{cantidad}</h1>
+                <button className='w-full text-xl m-1 bg-blue-100 text-blue-700 font-semibold p-2 rounded-lg' onClick={() => agregar()}>Agregar al carrito</button>
+                {enviado && <button className='w-full text-xl m-1 bg-red-100 text-red-700 font-semibold p-2 rounded-lg' onClick={() => eliminar()}>Eliminar del carrito</button>}
               </div>
             </div>
-
-
           </div>
         </div>
 
@@ -57,9 +81,8 @@ const Modal = () => {
           <Link to={"/tienda"} className='bg-blue-600 text-white rounded-xl px-5 py-2 mt-5 hover:bg-blue-800 '>Explora todos los productos</Link>
         </div>
       </div>
-
-
     </>
+
   )
 }
 
