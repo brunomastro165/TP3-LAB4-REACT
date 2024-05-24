@@ -21,9 +21,9 @@ const CardCarrito: FC<IDetalleLocal> = ({ detalle }) => {
                 <div className='flex flex-row justify-between w-full items-center'>
                     <div className='flex-col'>
                         <h1 className='p-2 text-xl'>{detalle.instrumento.instrumento}</h1>
-                        <h2 className='p-2 text-md font-light'><span className=''>Total individual: </span>${detalle.instrumento.precio * detalle.cantidad}</h2>
+                        <h2 className='p-2 text-md  text-blue-600 font-bold'><span className='text-black font-light'>Total individual: </span>${detalle.instrumento.precio * detalle.cantidad}</h2>
                     </div>
-                    <h2 className='bg-blue-600 p-5 rounded text-white'>{detalle.cantidad}</h2>
+                    <h2 className=' p-5 rounded text-blue-600'>Cantidad: {detalle.cantidad}</h2>
                 </div>
             </div>
 

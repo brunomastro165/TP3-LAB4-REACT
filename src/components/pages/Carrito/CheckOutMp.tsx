@@ -28,7 +28,7 @@ export function CheckOutMO({ montoCarrito = 0 }) {
     return (
 
         <div className='w-full flex flex-col justify-center items-center'>
-            <button onClick={getPreferenceMP} className='bg-blue-500 p-4 text-white font-bold rounded-md w-max'>Comprar con MercadoPago</button>
+            <button onClick={getPreferenceMP} className='bg-blue-500 p-4 text-white font-bold rounded-md w-max active:scale-95 transition-all hover:bg-blue-600 '>Comprar con MercadoPago</button>
             {idPreference ? (
                 <div>
                     <Wallet

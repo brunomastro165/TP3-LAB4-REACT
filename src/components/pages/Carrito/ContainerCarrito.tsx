@@ -30,7 +30,7 @@ const ContainerCarrito = () => {
 
 
     const post = () => {
-        const pedido: IPedido = { fecha: "2020-10-10", id: 0, total: total, detallesPedido: carrito, titulo:"" }
+        const pedido: IPedido = { fecha: "2020-10-10", id: 0, total: total, detallesPedido: carrito, titulo: "" }
         console.log(pedido);
         postPedido(pedido);
     }
@@ -48,15 +48,24 @@ const ContainerCarrito = () => {
                     </div>
                 </div>
 
-                <div className='flex items-center justify-center '><h1 className='text-xl w-54 bg-blue-600 px-5 py-2 text-white font-bold rounded-lg '>Total: ${total}</h1></div>
+                <div className='flex items-center justify-center bg-white w-1/3 h-auto rounded border p-5  flex-col just '>
+                    <h1 className='text-xl font-semibold'>Total de su pedido:</h1>
+                    <h1 className='text-xl w-54 text-blue-600 px-5 py-2   rounded-lg '>
+                        ${total}
+                    </h1>
+
+                    <div onClick={() => post()} className=' mt-4 '>
+                        <CheckOutMO montoCarrito={total} />
+                    </div>
+
+                </div>
             </div>
 
-            <div className='flex items-center justify-center '>
+            {/* <div className='flex items-center justify-center '>
                 <h1 className='bg-green-600 text-xl text-white p-5 rounded border-2 border-white active:scale-95 transition-all cursor-pointer
 hover:bg-white hover:text-green-600 hover:border-green-600 ' onClick={() => post()}>Realizar compra</h1>
-            </div>
+            </div> */}
 
-            <CheckOutMO montoCarrito={total} />
 
         </>
     )
