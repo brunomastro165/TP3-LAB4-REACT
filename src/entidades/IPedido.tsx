@@ -4,5 +4,6 @@ export interface IPedido {
     id: number,
     fecha: string,
     total: number,
+    titulo: string,
     detallesPedido: IDetallePedido[]
 }

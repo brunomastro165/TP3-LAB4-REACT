@@ -3,6 +3,11 @@ import { useCarrito } from '../../../hooks/useCarrito';
 import CardCarrito from './CardCarrito';
 import { postPedido } from '../../../api/Fetch';
 import { IPedido } from '../../../entidades/IPedido';
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
+import { CheckOutMO } from './CheckOutMp';
+
+
+initMercadoPago('TEST-7b148f92-305c-4ef9-a246-5622da48263e');
 
 const ContainerCarrito = () => {
 
@@ -25,7 +30,7 @@ const ContainerCarrito = () => {
 
 
     const post = () => {
-        const pedido: IPedido = { fecha: "2020-10-10", id: 0, total: total, detallesPedido: carrito }
+        const pedido: IPedido = { fecha: "2020-10-10", id: 0, total: total, detallesPedido: carrito, titulo:"" }
         console.log(pedido);
         postPedido(pedido);
     }
@@ -50,6 +55,9 @@ const ContainerCarrito = () => {
                 <h1 className='bg-green-600 text-xl text-white p-5 rounded border-2 border-white active:scale-95 transition-all cursor-pointer
 hover:bg-white hover:text-green-600 hover:border-green-600 ' onClick={() => post()}>Realizar compra</h1>
             </div>
+
+            <CheckOutMO montoCarrito={total} />
+
         </>
     )
 }
