@@ -5,7 +5,7 @@ import ContainerCarrito from './ContainerCarrito';
 
 const Carrito = () => {
     return (
-        <div className='min-h-screen pt-24 w-full'>
+        <div className='min-h-screen  w-full'>
             <ContainerCarrito />
         </div>
     )

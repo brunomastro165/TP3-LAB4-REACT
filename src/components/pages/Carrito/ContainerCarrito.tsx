@@ -5,6 +5,7 @@ import { postPedido } from '../../../api/Fetch';
 import { IPedido } from '../../../entidades/IPedido';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import { CheckOutMO } from './CheckOutMp';
+import Swal from 'sweetalert2';
 
 
 initMercadoPago('TEST-7b148f92-305c-4ef9-a246-5622da48263e');
@@ -14,6 +15,10 @@ const ContainerCarrito = () => {
     const { carrito } = useCarrito();
 
     const [total, setTotal] = useState<number>(0);
+
+
+
+    const [idPedido, setIdPedido] = useState<number>()
 
     useEffect(() => {
         let tempTotal = 0;
@@ -29,15 +34,19 @@ const ContainerCarrito = () => {
     //postPedido()
 
 
-    const post = () => {
-        const pedido: IPedido = { fecha: "2020-10-10", id: 0, total: total, detallesPedido: carrito, titulo: "" }
-        console.log(pedido);
-        postPedido(pedido);
+    const post = async () => {
+        const pedido: IPedido = { fecha: "2020-10-10", id: 0, total: total, detallesPedido: carrito, titulo: "Pedido buen sas" }
+
+        const res: IPedido = await postPedido(pedido);
+
+        const idPedido = res.id;
+
+        setIdPedido(idPedido);
     }
 
     return (
         <>
-            <div className='flex flex-row justify-around w-full items-center'>
+            <div className='flex flex-row h-screen justify-around w-full items-center'>
 
 
                 <div className='flex flex-col justify-center items-center'>
@@ -54,9 +63,12 @@ const ContainerCarrito = () => {
                         ${total}
                     </h1>
 
-                    <div onClick={() => post()} className=' mt-4 '>
-                        <CheckOutMO montoCarrito={total} />
-                    </div>
+                    <div className='btn bg-blue-600 text-white hover:bg-blue-800' onClick={() => (post())}>Guardar pedido</div>
+
+                    {idPedido && (<div onClick={() => { post() }} className=' mt-4 '>
+                        <CheckOutMO montoCarrito={total} idPedido={idPedido} />
+                    </div>)}
+
 
                 </div>
             </div>

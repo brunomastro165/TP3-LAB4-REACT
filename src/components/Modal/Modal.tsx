@@ -16,7 +16,7 @@ const Modal = () => {
   const [enviado, setEnviado] = useState<boolean>(false);
 
   function envio() {
-    if (data.costoEnvio === "G") {
+    if (data.costoEnvio === "0") {
       return <h3 className='text-green-500 flex justify-start flex-row'><img src="/assets/img/camion.png" />Envío gratis a todo el país</h3>
     }
     else {
@@ -45,10 +45,10 @@ const Modal = () => {
         <div
           className='overflow-y-scroll md:overflow-hidden flex w-full xl:w-2/3 flex-col justify-center md:justify-center items-center h-auto border-b m-2 p-5 mt-24 overflow-hidden bg-white'
         >
-          <div className='flex  flex-col lg:flex-row justify-center items-center '>
-            <div className='flex w-96 h-56 shadow-black bg-red-600 mx-14'>
+          <div className='flex w-full flex-col lg:flex-row justify-center items-center '>
+            <div className='flex  w-full shadow-black  mx-8'>
               <img src={data.imagen}
-                className='w-full ' />
+                className=' h-48 w-96 rounded-xl' />
             </div>
 
             <div className=' space-y-2 w-full '>

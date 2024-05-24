@@ -16,6 +16,13 @@ const CardCarrito: FC<IDetalleLocal> = ({ detalle }) => {
     return (
 
         <div className='flex flex-row items-center border-b hover:shadow-md transition-all  my-4'>
+
+
+            <div className='flex  w-52 shadow-black p-5'>
+                <img src={detalle.instrumento.imagen}
+                    className=' size-48 rounded-xl' />
+            </div>
+
             <div className=' rounded w-96 p-5'>
 
                 <div className='flex flex-row justify-between w-full items-center'>
@@ -25,6 +32,8 @@ const CardCarrito: FC<IDetalleLocal> = ({ detalle }) => {
                     </div>
                     <h2 className=' p-5 rounded text-blue-600'>Cantidad: {detalle.cantidad}</h2>
                 </div>
+
+
             </div>
 
             <div>

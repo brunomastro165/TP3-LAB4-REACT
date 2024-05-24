@@ -1,8 +1,18 @@
 import React, { useState } from 'react'
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import { createPreferenceMP } from '../../../api/Fetch';
+import Swal from 'sweetalert2';
 
-export function CheckOutMO({ montoCarrito = 0 }) {
+export function CheckOutMO({ montoCarrito = 0, idPedido = 0 }) {
+
+    const showAlert = (id: number) => {
+        Swal.fire({
+            title: '¡Su pedido se guardó exitosamente!',
+            text: `Ahora será redirijido a Mercado Pago para completar la transacción \n ID del pedido ${idPedido}`,
+            icon: 'success',
+            confirmButtonText: 'Genial'
+        });
+    }
 
     const [idPreference, setIdPreference] = useState<string>('');
 
@@ -28,9 +38,9 @@ export function CheckOutMO({ montoCarrito = 0 }) {
     return (
 
         <div className='w-full flex flex-col justify-center items-center'>
-            <button onClick={getPreferenceMP} className='bg-blue-500 p-4 text-white font-bold rounded-md w-max active:scale-95 transition-all hover:bg-blue-600 '>Comprar con MercadoPago</button>
+            <button onClick={getPreferenceMP} className='bg-blue-500 p-4 text-white font-bold rounded-md w-max'>Comprar con MercadoPago</button>
             {idPreference ? (
-                <div>
+                <div onClick={() => showAlert(idPedido)}>
                     <Wallet
                         initialization={{
                             preferenceId: idPreference,
