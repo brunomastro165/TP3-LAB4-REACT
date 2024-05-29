@@ -1,4 +1,5 @@
 import { IPedido } from "../entidades/IPedido";
+import { IUsuario } from "../entidades/IUsuario";
 import { Instrumento } from "../entidades/Instrumentos";
 
 //Llamada a la API del backend que trae todos los instrumentos
@@ -47,7 +48,37 @@ export const postPedido = async (pedido: IPedido) => {
     return await response.json();
 }
 
+export const postUsuario = async (usuario: IUsuario) => {
+    const response = await fetch('http://localhost:8080/usuarios/create', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(usuario)
+    });
 
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+}
+
+export const iniciarSesion = async (usuario: IUsuario) => {
+    const response = await fetch('http://localhost:8080/usuarios/getUsuario', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(usuario)
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+}
 
 export const putInstrumento = async (instrumento: Instrumento) => {
     const response = await fetch('http://localhost:8080/instrumentos/update', {

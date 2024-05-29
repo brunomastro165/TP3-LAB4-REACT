@@ -19,7 +19,6 @@ const FormInstrumento: FC<IFormInstrumento> = ({ open, setOpen, values }) => {
 
     console.log(values)
 
-
     return (
         <Formik initialValues={values} onSubmit={handleSubmit}>
 
@@ -91,7 +90,7 @@ const FormInstrumento: FC<IFormInstrumento> = ({ open, setOpen, values }) => {
 
                         <div className='flex flex-col w-full '>
                             <label htmlFor="categoria" className='text-xl font-bold'>Categoría:</label>
-                            <Field as="select" id="categoria" name="categoria.denominacion" className="p-5 m-2 active:scale-90 transition-all">
+                            <Field as="select" id="categoria" name="categoria.denominacion" className="p-5 m-2  transition-all">
                                 <option value="">Opciones</option>
                                 <option value="cuerda">Cuerda</option>
                                 <option value="viento">Viento</option>

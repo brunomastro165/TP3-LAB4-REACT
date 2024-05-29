@@ -27,7 +27,7 @@ export function CheckOutMO({ montoCarrito = 0, idPedido = 0 }) {
             }
         }
         else {
-            alert("Agregue al menos un plato al pedido");
+            alert("Agregue al menos un elemento al pedido");
         }
     }
 

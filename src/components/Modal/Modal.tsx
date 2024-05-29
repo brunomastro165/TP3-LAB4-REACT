@@ -1,10 +1,11 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { Instrumento } from '../../entidades/Instrumentos'
 import { useLocation, useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import { CarritoContextProvider } from '../../contexts/CarritoContext';
 import { useCarrito } from '../../hooks/useCarrito';
 import { IDetallePedido } from '../../entidades/IDetallePedido';
+import { IUsuario } from '../../entidades/IUsuario';
 
 const Modal = () => {
 
@@ -14,6 +15,9 @@ const Modal = () => {
   const [cantidad, setCantidad] = useState<number>(0);
 
   const [enviado, setEnviado] = useState<boolean>(false);
+
+  const [jsonUsuario, setJSONUsuario] = useState<any>(localStorage.getItem('usuario'));
+  const usuarioLogueado: IUsuario = JSON.parse(jsonUsuario) as IUsuario;
 
   function envio() {
     if (data.costoEnvio === "0") {
@@ -27,17 +31,27 @@ const Modal = () => {
   const { addCarrito, carrito, limpiarCarrito, removeCarrito, removeItem } = useCarrito();
 
   function agregar() {
-    let detalle: IDetallePedido = { id: 0, cantidad: cantidad, instrumento: data };
+    const detalle: IDetallePedido = { id: 0, cantidad: cantidad, instrumento: data };
     addCarrito(detalle);
     setEnviado(true)
   }
 
   function eliminar() {
-    let detalle: IDetallePedido = { id: 0, cantidad: cantidad, instrumento: data };
+    const detalle: IDetallePedido = { id: 0, cantidad: cantidad, instrumento: data };
     removeCarrito(detalle);
     setEnviado(false);
     setCantidad(0);
   }
+
+  useEffect(() => {
+    carrito.map((item) => {
+      if (item.instrumento.id === data.id) {
+        setEnviado(true);
+      } else {
+        setEnviado(false);
+      }
+    })
+  }, [carrito, data])
 
   return (
     <>
@@ -66,7 +80,9 @@ const Modal = () => {
               <h2 className='text-xl  font-light md:text-3xl'>${data.precio}</h2>
               <h2>Disponible en <span className='text-blue-600'>{data.cantidadVendida}</span> cuotas</h2>
               <div className='p-5'>
-                {enviado ||
+
+                {usuarioLogueado ? (
+                  enviado ||
                   <>
                     {cantidad >= 1 && <h1 className='text-center text-xl text-blue-600'>{cantidad}</h1>}
                     <div className='flex flex-row'>
@@ -75,8 +91,9 @@ const Modal = () => {
                     </div>
                     {cantidad >= 1 && <button className='w-full text-xl m-1 btn bg-blue-100 text-blue-700 font-semibold p-2 rounded-lg' onClick={() => agregar()}>Agregar al carrito</button>}
                   </>
-                }
-
+                ) : (
+                  <Link to={'/login'} className='btn text-center flex items-center'>Inicia sesión para comprar</Link>
+                )}
                 {enviado && <button className='w-full text-xl m-1 bg-red-100 text-red-700 font-semibold p-2 rounded-lg' onClick={() => eliminar()}>Eliminar del carrito</button>}
               </div>
             </div>

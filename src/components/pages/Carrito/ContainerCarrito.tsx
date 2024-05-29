@@ -16,8 +16,6 @@ const ContainerCarrito = () => {
 
     const [total, setTotal] = useState<number>(0);
 
-
-
     const [idPedido, setIdPedido] = useState<number>()
 
     useEffect(() => {
@@ -29,7 +27,7 @@ const ContainerCarrito = () => {
             setTotal(tempTotal)
         }
         cuenta();
-    }, [])
+    }, [carrito])
 
     //postPedido()
 

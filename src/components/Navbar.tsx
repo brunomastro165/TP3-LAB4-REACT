@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { IoMdMenu } from "react-icons/io";
@@ -8,7 +8,8 @@ import { FaShoppingBag } from "react-icons/fa";
 import { SiGooglemaps } from "react-icons/si";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { FaShoppingCart } from "react-icons/fa";
-
+import { IUsuario } from '../entidades/IUsuario';
+import { MdOutlineGppGood } from "react-icons/md";
 
 
 const Navbar = () => {
@@ -16,7 +17,9 @@ const Navbar = () => {
   const [selected, setSelected] = useState("Home")
   const [open, setOpen] = useState(false);
 
+  const [jsonUsuario, setJSONUsuario] = useState<any>(localStorage.getItem('usuario')) as unknown as IUsuario;
 
+  const usuarioLogueado: IUsuario = JSON.parse(jsonUsuario) as IUsuario;
 
   return (
     <>
@@ -44,6 +47,17 @@ const Navbar = () => {
               <FaShoppingBag />
               <h1 className=' rounded-lg  p-2'>
                 Tienda
+              </h1>
+            </span>
+          </Link>
+
+          <Link to={"/login"}
+            onClick={() => setSelected("Login")}
+            className={`px-5 py-2 rounded-lg hover:bg-gray-50 hover:text-black transition-all ${selected === "Login" ? 'bg-gray-50 text-black' : ''}`}>
+            <span className='flex flex-row items-center justify-start text-center'>
+              <MdOutlineGppGood />
+              <h1 className=' rounded-lg  p-2'>
+                Login
               </h1>
             </span>
           </Link>
@@ -80,6 +94,7 @@ const Navbar = () => {
               </h1>
             </span>
           </Link>
+
         </div>
 
 
