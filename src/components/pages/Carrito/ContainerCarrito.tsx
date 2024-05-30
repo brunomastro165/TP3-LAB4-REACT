@@ -22,7 +22,7 @@ const ContainerCarrito = () => {
         let tempTotal = 0;
         const cuenta = () => {
             carrito.map((element) => {
-                tempTotal += Number(element.instrumento.precio) * Number(element.cantidad);
+                tempTotal += Number(element.instrumento.precio) * Number(element.cantidad) + Number(element.instrumento.costoEnvio);
             })
             setTotal(tempTotal)
         }
@@ -31,9 +31,12 @@ const ContainerCarrito = () => {
 
     //postPedido()
 
-
     const post = async () => {
-        const pedido: IPedido = { fecha: "2020-10-10", id: 0, total: total, detallesPedido: carrito, titulo: "Pedido buen sas" }
+
+        const user = localStorage.getItem('usuario')
+        console.log(user);
+
+        const pedido: IPedido = { fecha: "2024-10-10", id: 0, total: total, detallesPedido: carrito, titulo: "Pedido buen sas" }
 
         const res: IPedido = await postPedido(pedido);
 
@@ -63,10 +66,9 @@ const ContainerCarrito = () => {
 
                     <div className='btn bg-blue-600 text-white hover:bg-blue-800' onClick={() => (post())}>Guardar pedido</div>
 
-                    {idPedido && (<div onClick={() => { post() }} className=' mt-4 '>
+                    {idPedido && (<div className=' mt-4 '>
                         <CheckOutMO montoCarrito={total} idPedido={idPedido} />
                     </div>)}
-
 
                 </div>
             </div>

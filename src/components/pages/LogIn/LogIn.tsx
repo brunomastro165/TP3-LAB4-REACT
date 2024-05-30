@@ -35,6 +35,7 @@ const LogIn = () => {
 
     //Setee esto acá porque no quería hacer un botón de logout (pero podría)
     localStorage.removeItem('usuario')
+    limpiarCarrito()
   }, [])
 
   const handleSubmit = async (values: IUsuario) => {

@@ -45,7 +45,14 @@ export const postPedido = async (pedido: IPedido) => {
         throw new Error(`HTTP error! status: ${response.status}`);
     }
 
+    console.log(response)
     return await response.json();
+}
+
+export const getPedidos = async () => {
+    const response = await fetch('http://localhost:8080/pedidos/all');
+    const data = await response.json();
+    return data;
 }
 
 export const postUsuario = async (usuario: IUsuario) => {
