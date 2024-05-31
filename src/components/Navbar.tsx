@@ -10,17 +10,32 @@ import { MdAdminPanelSettings } from "react-icons/md";
 import { FaShoppingCart } from "react-icons/fa";
 import { IUsuario } from '../entidades/IUsuario';
 import { MdOutlineGppGood } from "react-icons/md";
+import { useCarrito } from '../hooks/useCarrito';
+import LogOut from './pages/LogIn/LogOut';
 
 
 const Navbar = () => {
 
   const [selected, setSelected] = useState("Home")
+
   const [open, setOpen] = useState(false);
 
   const [jsonUsuario, setJSONUsuario] = useState<any>(localStorage.getItem('usuario')) as unknown as IUsuario;
 
+  // const [usuarioLogueado, setUsuarioLogueado] = useState<IUsuario>(JSON.parse(jsonUsuario));
+
+  const { update, switchUpdate } = useCarrito();
+
+  useEffect(() => {
+    setJSONUsuario(localStorage.getItem('usuario'))
+    //setUsuarioLogueado(JSON.parse(jsonUsuario));
+    console.log(update)
+  }, [update])
+
+
   const usuarioLogueado: IUsuario = JSON.parse(jsonUsuario) as IUsuario;
 
+  console.log(usuarioLogueado)
   return (
     <>
       <div className='w-full flex bg-black  justify-around  h-12 items-center py-10 fixed z-50 border-b border-white
@@ -51,17 +66,6 @@ const Navbar = () => {
             </span>
           </Link>
 
-          <Link to={"/login"}
-            onClick={() => setSelected("Login")}
-            className={`px-5 py-2 rounded-lg hover:bg-gray-50 hover:text-black transition-all ${selected === "Login" ? 'bg-gray-50 text-black' : ''}`}>
-            <span className='flex flex-row items-center justify-start text-center'>
-              <MdOutlineGppGood />
-              <h1 className=' rounded-lg  p-2'>
-                Login
-              </h1>
-            </span>
-          </Link>
-
           <Link to={"/DondeEstamos"}
             onClick={() => setSelected("Donde estamos")}
             className={`px-5 py-2 rounded-lg hover:bg-gray-50 hover:text-black transition-all ${selected === "Donde estamos" ? 'bg-gray-50 text-black' : ''}`}>
@@ -73,30 +77,47 @@ const Navbar = () => {
             </span>
           </Link>
 
-          <Link to={"/admin"}
-            onClick={() => setSelected("Administrador")}
-            className={`px-5 py-2 rounded-lg hover:bg-gray-50 hover:text-black transition-all ${selected === "Administrador" ? 'bg-gray-50 text-black' : ''}`}>
-            <span className='flex flex-row items-center justify-start text-center'>
-              <MdAdminPanelSettings />
-              <h1 className=' rounded-lg  p-2'>
-                Administrador
-              </h1>
-            </span>
-          </Link>
+          {usuarioLogueado?.rol === "administrador" && (
+            <Link to={"/admin"}
+              onClick={() => setSelected("Administrador")}
+              className={`px-5 py-2 rounded-lg hover:bg-gray-50 hover:text-black transition-all ${selected === "Administrador" ? 'bg-gray-50 text-black' : ''}`}>
+              <span className='flex flex-row items-center justify-start text-center'>
+                <MdAdminPanelSettings />
+                <h1 className=' rounded-lg  p-2'>
+                  Administrador
+                </h1>
+              </span>
+            </Link>
+          )}
 
-          <Link to={"/carrito"}
-            onClick={() => setSelected("Carrito")}
-            className={`px-5 py-2 rounded-lg hover:bg-gray-50 hover:text-black transition-all ${selected === "Carrito" ? 'bg-gray-50 text-black' : ''}`}>
-            <span className='flex flex-row items-center justify-start text-center'>
-              <FaShoppingCart />
-              <h1 className=' rounded-lg  p-2'>
-                Carrito
-              </h1>
-            </span>
-          </Link>
+          {usuarioLogueado && (
+            <Link to={"/carrito"}
+              onClick={() => setSelected("Carrito")}
+              className={`px-5 py-2 rounded-lg hover:bg-gray-50 hover:text-black transition-all ${selected === "Carrito" ? 'bg-gray-50 text-black' : ''}`}>
+              <span className='flex flex-row items-center justify-start text-center'>
+                <FaShoppingCart />
+                <h1 className=' rounded-lg  p-2'>
+                  Carrito
+                </h1>
+              </span>
+            </Link>
+          )}
+
 
         </div>
 
+
+        {!usuarioLogueado && (
+          <Link to={"/login"}
+            onClick={() => setSelected("Login")}
+            className={`px-5 py-2 rounded-lg hover:bg-gray-50 hover:text-black transition-all ${selected === "Login" ? 'bg-gray-50 text-black' : ''}`}>
+            <span className='flex flex-row items-center justify-start text-center'>
+              <MdOutlineGppGood className='text-3xl' />
+            </span>
+          </Link>
+        )}
+
+        {usuarioLogueado && <LogOut />}
 
         <div className='flex md:hidden relative text-center  justify-center items-center '>
 

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import { createPreferenceMP } from '../../../api/Fetch';
 import Swal from 'sweetalert2';
 
@@ -31,8 +30,13 @@ export function CheckOutMO({ montoCarrito = 0, idPedido = 0 }) {
         }
     }
 
-    initMercadoPago('TEST-7b148f92-305c-4ef9-a246-5622da48263e', { locale: 'es-AR' });
 
+    //initMercadoPago('TEST-eff543e9-2e4e-49cb-9e55-fc3f1a0fa3da');
+
+    const handleCompra = () => {
+        const url = `https://sandbox.mercadopago.com.ar/checkout/v1/redirect?preference-id=${idPreference}`;
+        window.open(url, '_blank');
+    }
     console.log(idPreference);
 
     return (
@@ -40,18 +44,13 @@ export function CheckOutMO({ montoCarrito = 0, idPedido = 0 }) {
         <div className='w-full flex flex-col justify-center items-center'>
             <button onClick={getPreferenceMP} className='bg-blue-500 p-4 text-white font-bold rounded-md w-max'>Comprar con MercadoPago</button>
             {idPreference ? (
-                <div onClick={() => showAlert(idPedido)}>
-                    <Wallet
-                        initialization={{
-                            preferenceId: idPreference,
-                            redirectMode: "blank",
-                        }}
-                        customization={{ texts: { valueProp: "smart_option" } }
-                        }
-                    />
-                </div>
+                <button className='btn' onClick={() => { showAlert(idPedido), handleCompra() }}>
+                    Comprar con Mercado Pago
+                </button>
             ) : (
-                <div></div>
+                <div>
+
+                </div>
             )}
         </div>
 

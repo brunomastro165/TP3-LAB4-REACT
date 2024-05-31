@@ -20,7 +20,7 @@ const LogIn = () => {
 
   const navigate = useNavigate()
 
-  const { limpiarCarrito } = useCarrito()
+  const { limpiarCarrito, update, switchUpdate } = useCarrito()
 
   const validationSchema = Yup.object({
     nombreUsuario: Yup.string()
@@ -32,9 +32,7 @@ const LogIn = () => {
   });
 
   useEffect(() => {
-
-    //Setee esto acá porque no quería hacer un botón de logout (pero podría)
-    localStorage.removeItem('usuario')
+    switchUpdate()
     limpiarCarrito()
   }, [])
 
@@ -47,6 +45,7 @@ const LogIn = () => {
         localStorage.setItem('usuario', JSON.stringify(res));
         setSuccess('Registrado')
         setTimeout(() => {
+          switchUpdate()
           navigate("/")
         }, 1000);
 
@@ -63,6 +62,7 @@ const LogIn = () => {
         localStorage.removeItem('carrito')
         setSuccess('Loggeado')
         setTimeout(() => {
+          switchUpdate()
           navigate("/")
         }, 1000);
       } catch (error) {
@@ -76,23 +76,28 @@ const LogIn = () => {
   return (
 
     <>
-      <div className='pt-24'>LogOut</div>
-      <div className='h-screen flex space-y-6 flex-col justify-center w-full items-center '>
+      <div className=''>LogOut</div>
+      <div className='h-screen flex space-y-6 flex-col justify-center w-full items-center bg-slate-100'>
         <Formik
           initialValues={{ nombreUsuario: '', clave: '', rol: '', id: 0, activo: true }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
           {({ errors, touched }) => (
-            <Form className='flex flex-col gap-4 rounded-xl w-1/3 py-16 px-4 border '>
-              <label className="input input-bordered flex items-center gap-2">
-                <Field type="text" name="nombreUsuario" placeholder="Nombre de Usuario" />
-              </label>
-              <label className="input input-bordered flex items-center gap-2">
-                <Field type="password" name="clave" placeholder="Clave" />
-              </label>
+            <Form className='flex flex-col gap-4 rounded-sm w-1/3 py-16 px-4 border bg-white '>
+              <div className='flex flex-col justify-center items-center'>
+                <h1 className='font-bold'>MUSICAL HENDRIX</h1>
+              </div>
+              <div className='flex flex-row w-full justify-center items-center space-x-2'>
+                <label className="input input-bordered flex items-center w-full gap-2">
+                  <Field type="text" name="nombreUsuario" placeholder="Nombre de Usuario" />
+                </label>
+                <label className="input input-bordered flex items-center w-full gap-2">
+                  <Field type="password" name="clave" placeholder="Clave" />
+                </label>
+              </div>
               <Field as="select" id="rol" name="rol" className="select  select-bordered flex items-center gap-2">
-                <option value=""></option>
+                <option value="">Selecciona tu rol</option>
                 <option value="administrador">Administrador</option>
                 <option value="cliente">Cliente</option>
               </Field>

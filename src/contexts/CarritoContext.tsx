@@ -8,6 +8,8 @@ interface CartContextType {
     removeCarrito: (product: IDetallePedido) => void,
     removeItem: (product: IDetallePedido) => void,
     limpiarCarrito: () => void,
+    update: boolean,
+    switchUpdate: () => void,
 }
 
 export const CartContext = createContext<CartContextType>({
@@ -15,10 +17,19 @@ export const CartContext = createContext<CartContextType>({
     addCarrito: () => { },
     removeCarrito: () => { },
     removeItem: () => { },
-    limpiarCarrito: () => { }
+    limpiarCarrito: () => { },
+    update: false,
+    switchUpdate: () => { },
 })
 
 export function CarritoContextProvider({ children }: { children: ReactNode }) {
+
+
+    const [update, setUpdate] = useState<boolean>(false);
+
+    const switchUpdate = () => {
+        setUpdate(!update);
+    }
 
     const [carrito, setCarrito] = useState<IDetallePedido[]>(() => {
         const localData = localStorage.getItem('carrito');
@@ -82,7 +93,7 @@ export function CarritoContextProvider({ children }: { children: ReactNode }) {
 
 
     return (
-        <CartContext.Provider value={{ carrito, addCarrito, limpiarCarrito, removeCarrito, removeItemCarrito }}>
+        <CartContext.Provider value={{ carrito, addCarrito, limpiarCarrito, removeCarrito, removeItemCarrito, switchUpdate, update }}>
             {children}
         </CartContext.Provider>
     );
