@@ -37,8 +37,7 @@ export function CheckOutMO({ montoCarrito = 0, idPedido = 0 }) {
         const url = `https://sandbox.mercadopago.com.ar/checkout/v1/redirect?preference-id=${idPreference}`;
         window.open(url, '_blank');
     }
-    console.log(idPreference);
-
+ 
     return (
 
         <div className='w-full flex flex-col justify-center items-center'>

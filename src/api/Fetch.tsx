@@ -49,6 +49,28 @@ export const postPedido = async (pedido: IPedido) => {
     return await response.json();
 }
 
+export const downloadExcel = async (fechaInicio: string, fechaFin: string) => {
+    const response = await fetch(`http://localhost:8080/excel/export?fechaInicio=2024-01-01&fechaFin=2024-12-31`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'pedidos.xlsx');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
 export const getPedidos = async () => {
     const response = await fetch('http://localhost:8080/pedidos/all');
     const data = await response.json();

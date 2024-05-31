@@ -18,9 +18,6 @@ const BarChartComponent = () => {
 
     }, [])
 
-    console.log(pedidos)
-
-
     // Función para procesar los datos para el gráfico de barras
     function processData(data: IPedido[]) {
         // Crear un objeto para almacenar los resultados
@@ -46,19 +43,31 @@ const BarChartComponent = () => {
         });
 
         // Convertir el resultado a un array de objetos
-        return Object.keys(result).map(key => ({ name: key, cantidad: result[key] }));
+        const arrayResult = Object.keys(result).map(key => ({ name: key, cantidad: result[key] }));
+
+        // Ordenar el array de objetos por fecha de manera descendente
+        arrayResult.sort((a, b) => {
+            const dateA = new Date(a.name);
+            const dateB = new Date(b.name);
+            return dateB.getTime() - dateA.getTime();
+        });
+
+        return arrayResult;
     }
 
     // Aquí debes procesar tus datos para obtener la cantidad de pedidos por mes y año
     const processedData = processData(pedidos);
 
     return (
-        <BarChart width={500} height={300} data={processedData}>
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Bar dataKey="cantidad" fill="#8884d8" />
-        </BarChart>
+        <div className='bg-black m-4 p-2 rounded-xl border-4'>
+            <h1 className='text-white font-semibold text-xl text-center mb-4 m-4 p-2 rounded-xl'>Nuestras ventas por mes y año</h1>
+            <BarChart width={500} height={300} data={processedData} className=''>
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="cantidad" fill="#8884d8" />
+            </BarChart>
+        </div>
     );
 };
 

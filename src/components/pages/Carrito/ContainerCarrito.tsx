@@ -45,7 +45,7 @@ const ContainerCarrito = () => {
         const user = localStorage.getItem('usuario')
         console.log(user);
 
-        const pedido: IPedido = { fecha: "2024-10-10", id: 0, total: total, detallesPedido: carrito, titulo: "Pedido buen sas" }
+        const pedido: IPedido = { fecha: "2024-08-10", id: 0, total: total, detallesPedido: carrito, titulo: "Pedido buen sas" }
 
         const res: IPedido = await postPedido(pedido);
 
