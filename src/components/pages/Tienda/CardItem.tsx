@@ -1,10 +1,6 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { Instrumento } from '../../../entidades/Instrumentos'
-import { useState } from 'react'
-import camion from '../assets/img/nro1.jpg'
-import Modal from '../../Modal/Modal'
-import { Link, useNavigate } from 'react-router-dom'
-import { AiOutlineLoading } from "react-icons/ai";
+import { useNavigate } from 'react-router-dom'
 import { fetchDataById } from '../../../api/Fetch'
 
 
@@ -30,9 +26,6 @@ const CardItem: FC<Instrumento> = ({ instrumento, cantidadVendida, costoEnvio, d
             return <h3 className='text-orange-500'>Costo de envío ${costoEnvio}</h3>
         }
     }
-
-    console.log("betitosex")
-    console.log(imagen)
 
     return (
         <>

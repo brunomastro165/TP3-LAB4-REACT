@@ -4,11 +4,13 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
 import { deleteInstrumento, fetchDataById } from '../../api/Fetch';
 import FormInstrumento from './Form';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import GeneratePDF from './GeneratePDF';
 
 
 
 const TableItem: FC<Instrumento> = ({ activo, cantidadVendida, categoria, costoEnvio, descripcion, id, imagen, instrumento, marca, modelo, precio }) => {
-
 
     const [open, setOpen] = useState<boolean>(false);
 
@@ -45,9 +47,7 @@ const TableItem: FC<Instrumento> = ({ activo, cantidadVendida, categoria, costoE
 
     return (
         <>
-
             <tr className="bg-white border-b  text-xl">
-
                 <td className="px-6 py-4">
                     {instrumento}
                 </td>
@@ -63,14 +63,26 @@ const TableItem: FC<Instrumento> = ({ activo, cantidadVendida, categoria, costoE
                 <td className="px-6 py-4 flex flex-row items-center text-3xl space-x-4">
                     <MdOutlineModeEdit onClick={() => openPUT()} className='hover:text-blue-600' />
                     <MdDeleteOutline className='hover:text-red-600' onClick={() => openDELETE()} />
+                    <GeneratePDF activo={activo}
+                        cantidadVendida={cantidadVendida}
+                        categoria={categoria}
+                        costoEnvio={costoEnvio}
+                        descripcion={descripcion}
+                        id={id}
+                        imagen={imagen}
+                        instrumento={instrumento}
+                        marca={marca}
+                        modelo={modelo}
+                        precio={precio}
+                        key={1} />
                 </td>
             </tr>
 
             {open &&
                 <div className='w-full h-full'>
                     <FormInstrumento open={open} setOpen={setOpen} values={formValues} />
-                </div>}
-
+                </div>
+            }
         </>
     )
 }
