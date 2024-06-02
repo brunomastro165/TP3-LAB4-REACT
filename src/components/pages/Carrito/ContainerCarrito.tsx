@@ -46,9 +46,12 @@ const ContainerCarrito = () => {
         console.log(user);
 
         const pedido: IPedido = { fecha: "2024-08-10", id: 0, total: total, detallesPedido: carrito, titulo: "Pedido buen sas" }
+        console.log("Datos enviados desde el frontend")
+        console.log(pedido)
 
         const res: IPedido = await postPedido(pedido);
-
+        console.log("Datos recibidos desde el backend")
+        console.log(res)
         const idPedido = res.id;
 
         setIdPedido(idPedido);

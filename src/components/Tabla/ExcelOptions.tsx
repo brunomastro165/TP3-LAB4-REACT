@@ -8,29 +8,30 @@ interface IExcelOptions {
 }
 
 const ExcelOptions: FC<IExcelOptions> = ({ setExcel }) => {
-
-
+    
     const [fechaInicio, setFechaInicio] = useState<string>('');
 
     const [fechaFin, setFechaFin] = useState<string>('');
 
-
-    const handleSubmit = async (values) => {
-        const { fechaInicio, fechaFin } = values;
-        await downloadExcel('2020-1-1', '2024-12-12');
+    const handleSubmit = async (values: any) => {
+        console.log(values)
+        await downloadExcel(values.fechaInicio, values.fechaFin);
     }
 
     return (
-        <div className='inset-0 bg-black w-full fixed flex  justify-center items-center z-50 bg-opacity-50'>
+        <div className='inset-0 bg-black w-full fixed flex  justify-center flex-col items-center z-50 bg-opacity-50'>
             <Formik className='bg-white flex flex-col justify-center items-center p-5 rounded-xl'
                 initialValues={{ fechaInicio: '', fechaFin: '' }}
                 onSubmit={handleSubmit}>
                 <>
-                    <button className='text-start btn' onClick={() => setExcel(false)}>X</button>
-                    <Form className='flex flex-col'>
-                        <Field name="fechaInicio" type="date" />
-                        <Field name="fechaFin" type="date" />
-                        <button type="submit">Descargar Excel</button>
+                    <Form className='flex flex-col bg-white p-5 space-y-5 rounded-xl '>
+                    <button className=' self-end btn btn-error text-white' onClick={() => setExcel(false)}>X</button>
+                        <label htmlFor="fechaInicio">Fecha de inicio</label>
+                        <Field name="fechaInicio" id="fechaInicio" className="input input-bordered" type="date" />
+
+                        <label htmlFor="fechaInicio">Fecha de fin</label>
+                        <Field name="fechaFin" className="input input-bordered" type="date" />
+                        <button type="submit" className='btn bg-green-700 border-none btn-wide text-white hover:bg-green-600'>Descargar Excel</button>
                     </Form>
                 </>
             </Formik>
