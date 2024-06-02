@@ -46,7 +46,7 @@ const TableItem: FC<Instrumento> = ({ activo, cantidadVendida, categoria, costoE
     return (
         <>
 
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-xl">
+            <tr className="bg-white border-b  text-xl">
 
                 <td className="px-6 py-4">
                     {instrumento}
