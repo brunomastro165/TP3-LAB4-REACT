@@ -113,7 +113,7 @@ const GeneratePDF: FC<Instrumento> = ({ activo, cantidadVendida, categoria, cost
           </div>
         </div>}
 
-      <button onClick={() => { setMostrar(true) }} className=" text-red-600 p-2 rounded">
+      <button onClick={() => { setMostrar(true) }} className=" text-gray-500 hover:text-red-600 transition-all ">
         <FaRegFilePdf />
       </button>
     </div>
