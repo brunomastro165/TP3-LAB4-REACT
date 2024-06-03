@@ -7,6 +7,7 @@ import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import { CheckOutMO } from './CheckOutMp';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
+import { SiMercadopago } from "react-icons/si";
 
 
 initMercadoPago('TEST-7b148f92-305c-4ef9-a246-5622da48263e');
@@ -40,27 +41,10 @@ const ContainerCarrito = () => {
 
     //postPedido()
 
-    const post = async () => {
-
-        const user = localStorage.getItem('usuario')
-        console.log(user);
-
-        const pedido: IPedido = { fecha: "2024-08-10", id: 0, total: total, detallesPedido: carrito, titulo: "Pedido buen sas" }
-        console.log("Datos enviados desde el frontend")
-        console.log(pedido)
-
-        const res: IPedido = await postPedido(pedido);
-        console.log("Datos recibidos desde el backend")
-        console.log(res)
-        const idPedido = res.id;
-
-        setIdPedido(idPedido);
-    }
-
     return (
         <>
             {carrito.length >= 1 ? (
-                <div className='flex flex-row h-screen justify-around w-full items-center'>
+                <div className='flex flex-row h-screen justify-around w-full items-center '>
 
                     <div className='flex flex-col justify-center items-center'>
                         <div className='flex flex-col justify-center items-center'>
@@ -77,15 +61,9 @@ const ContainerCarrito = () => {
                             <h1 className='text-lg w-54 text-blue-600 px-5   rounded-lg '><span className='text-black'>Envío:</span> ${envio}</h1>
                         </div>
 
-                        <div className='p-5'>
-                            <div className='btn bg-blue-600 text-white hover:bg-blue-800' onClick={() => (post())}>
-                                Guardar pedido
-                            </div>
+                        <div className=' mt-4 p-5'>
+                            <CheckOutMO montoCarrito={total + envio} />
                         </div>
-
-                        {idPedido && (<div className=' mt-4 '>
-                            <CheckOutMO montoCarrito={total + envio} idPedido={idPedido} />
-                        </div>)}
 
                     </div>
                 </div>
@@ -100,6 +78,7 @@ const ContainerCarrito = () => {
                     </div>
                 </div>
             )}
+
 
 
             {/* <div className='flex items-center justify-center '>

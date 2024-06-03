@@ -83,7 +83,7 @@ const GeneratePDF: FC<Instrumento> = ({ activo, cantidadVendida, categoria, cost
     <div >
 
       {mostrar &&
-        <div className=" fixed inset-0 flex justify-center items-center flex-col bg-black bg-opacity-40" >
+        <div className=" fixed inset-0 opacity-0 flex justify-center items-center flex-col bg-black bg-opacity-40" >
           <div
             className='overflow-y-scroll md:overflow-hidden flex w-full xl:w-2/3 flex-col justify-center md:justify-center items-center h-auto border-b m-2 p-5 mt-24 overflow-hidden bg-white'
             ref={pdfContentRef}
