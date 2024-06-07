@@ -9,63 +9,56 @@ import { Instrumento } from '../../entidades/Instrumentos';
 const PieChartComponent = () => {
     const [instrumentos, setInstrumentos] = useState<Instrumento[]>([]);
 
+    const [pieData, setPieData] = useState<any>(null);
+
+    const [pieError, setPieError] = useState<string | null>(null);
+
+    const fetchData = async (url, setData, setError) => {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Network response was not ok');
+            const data = await response.json();
+            if (!Array.isArray(data)) throw new Error('Invalid data format');
+
+            const transformedData = data.map(item => ({
+                name: item[0],  // instrument name
+                value: item[1]  // quantity sold
+            }));
+
+            setData(transformedData);
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    console.log(pieData)
     useEffect(() => {
-        const traerInstrumentos = async () => {
-            const res = await fetchAllData();
-            setInstrumentos(res);
-        };
-        traerInstrumentos();
+        fetchData('http://localhost:8080/instrumentos/group-by-instrument', setPieData, setPieError);
     }, []);
-
-    // Función para procesar los datos para el gráfico de pastel
-    // Función para procesar los datos para el gráfico de barras
-    function processData(data: Instrumento[]) {
-        // Crear un objeto para almacenar los resultados
-        const result: { [key: string]: number } = {};
-
-        // Recorrer cada instrumento
-        data.forEach(instrumento => {
-            // Si el instrumento no existe en el resultado, inicializarlo
-            if (!result[instrumento.instrumento]) {
-                result[instrumento.instrumento] = 0;
-            }
-
-            // Incrementar la cantidad vendida para el instrumento
-            result[instrumento.instrumento] += instrumento.cantidadVendida;
-        });
-
-        // Convertir el resultado a un array de objetos
-        const arrayResult = Object.keys(result).map(key => ({ name: key, cantidad: Number(result[key]) }));
-
-        return arrayResult;
-    }
-    const processedData = processData(instrumentos);
 
     // Colores para cada segmento del gráfico de pastel
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
-    console.log(processedData)
     return (
         <div className='bg-black m-4 p-2 rounded-xl border-4'>
-            <h1 className='text-white font-semibold text-center text-xl mb-4 m-4 p-2 rounded-xl'>Nuestros instrumentos más vendidos</h1>
+            <h1 className='text-white font-semibold text-center text-xl mb-4 m-4 p-2 rounded-xl'>
+                Nuestros instrumentos más vendidos
+            </h1>
             <PieChart width={500} height={300}>
                 <Pie
-                    data={processedData}
-                    cx={250}
-                    cy={150}
-                    labelLine={false}
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    data={pieData}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
                     outerRadius={100}
                     fill="#8884d8"
-                    dataKey="cantidad"
-                >
-                    {
-                        processedData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
-                    }
-                </Pie>
+                    label
+                />
                 <Tooltip />
                 <Legend />
             </PieChart>
+            {pieError && <p className='text-red-500'>{pieError}</p>}
         </div>
     );
 };
